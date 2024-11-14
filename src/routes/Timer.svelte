@@ -14,7 +14,7 @@
         return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
-    function pomodoroTime() {
+    function pomodoroTime() { // set it to specific mode
         clearInterval(interval);
         remaining = 1500; 
         currentMode = "Pomodoro"; 
