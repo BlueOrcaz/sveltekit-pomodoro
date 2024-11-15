@@ -4,7 +4,7 @@
     let pomodoro = 1; 
     let currentMode = "Pomodoro";
     let visible = false;
-    let buttonText = "Start"; 
+    let buttonText = "START"; 
 
     // after a break, increase pomodoro by 1
     // long mode once pomodoro 4 finishes. 
@@ -34,8 +34,8 @@
     }
 
     function updateTimer() {
-        if(buttonText === "Start") {
-            buttonText = "Stop";
+        if(buttonText === "START") {
+            buttonText = "STOP";
             visible = true;
             interval = setInterval(() => {
                 if (remaining > 0) {
@@ -46,7 +46,7 @@
                 }
             }, 1000);
         } else {
-            buttonText = "Start";
+            buttonText = "START";
             visible = false;
             clearInterval(interval);  // Stop the interval
         }
@@ -55,7 +55,7 @@
     
 
     function nextMode() {
-        buttonText = "Start";
+        buttonText = "START";
         visible = false;
         clearInterval(interval); 
         // If we're in a break mode, switch to Pomodoro
@@ -76,28 +76,60 @@
     
 </script>
 
-<div>
-    <button on:click={pomodoroTime}>Pomodoro</button>
-    <button on:click={shortBreak}>Short Break</button>
-    <button on:click={longBreak}>Long Break</button>
-    <div>{formatTime(remaining)}</div>
-    <button on:click={updateTimer}>{buttonText}</button>
+<div class="timer">
+    <div class="header-buttons">
+        <button on:click={pomodoroTime}>Pomodoro</button>
+        <button on:click={shortBreak}>Short Break</button>
+        <button on:click={longBreak}>Long Break</button>
+    </div>
+
+    <div class="time-remaining">
+        {formatTime(remaining)}
+    </div>
+
+    <button class="start-button" on:click={updateTimer}>{buttonText}</button>
     {#if visible} 
         <button on:click={nextMode}>Next Mode</button>
     {/if}
-    <p>Pomodoro: {pomodoro}</p>
 </div>
 
+<p>#{pomodoro}</p>
+<p>Time to Focus!</p>
+
+<link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
+
 <style>
-    div {
-      text-align: center;
-      margin: 20px;
+    .time-remaining {
+        font-size: 120px;
+        font-weight: bold;
+        margin-top: 20px;
+        font-family: 'Varela Round';
     }
 
+    .timer {
+        background-color: rgb(193,92,92);
+    }
+
+    div {
+      text-align: center;
+      margin: 25px;
+      border-radius: 10px;
+    }
+
+
     button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+        font-family: 'Arial Rounded MT Regular';
+        margin: 10px;
+        padding: 5px 20px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+        background-color: rgb(164,78,78);
+        border-radius: 10px;
+    }
+
+    .start-button {
+        background-color: white;
+        color: rgb(164,78,78);
     }
 </style>
