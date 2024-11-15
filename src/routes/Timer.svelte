@@ -4,6 +4,7 @@
     let pomodoro = 1; 
     let currentMode = "Pomodoro";
     let visible = false;
+    let buttonText = "Start"; 
 
     // after a break, increase pomodoro by 1
     // long mode once pomodoro 4 finishes. 
@@ -32,25 +33,30 @@
         currentMode = "Long"; 
     }
 
-    function startTimer() {
-        visible = true;
-        interval = setInterval(() => {
-            if (remaining > 0) {
-                remaining -= 1;
-            } else {
-                clearInterval(interval); 
-                alert("Time's up!"); 
-            }
-        }, 1000);
+    function updateTimer() {
+        if(buttonText === "Start") {
+            buttonText = "Stop";
+            visible = true;
+            interval = setInterval(() => {
+                if (remaining > 0) {
+                    remaining -= 1;
+                } else {
+                    clearInterval(interval); 
+                    alert("Time's up!"); 
+                }
+            }, 1000);
+        } else {
+            buttonText = "Start";
+            visible = false;
+            clearInterval(interval);  // Stop the interval
+        }
     }
 
-    function stopTimer() {
-        visible = false;
-        clearInterval(interval);  // Stop the interval
-    }
     
 
     function nextMode() {
+        buttonText = "Start";
+        visible = false;
         clearInterval(interval); 
         // If we're in a break mode, switch to Pomodoro
         if (currentMode === "Short" || currentMode === "Long") {
@@ -74,15 +80,11 @@
     <button on:click={pomodoroTime}>Pomodoro</button>
     <button on:click={shortBreak}>Short Break</button>
     <button on:click={longBreak}>Long Break</button>
-
     <div>{formatTime(remaining)}</div>
-    <button on:click={startTimer}>Start</button>
-    <button on:click={stopTimer}>Stop</button>
+    <button on:click={updateTimer}>{buttonText}</button>
     {#if visible} 
         <button on:click={nextMode}>Next Mode</button>
     {/if}
-    
-
     <p>Pomodoro: {pomodoro}</p>
 </div>
 
