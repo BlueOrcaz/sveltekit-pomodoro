@@ -6,6 +6,11 @@
     let visible = false;
     let buttonText = "START"; 
 
+    let backgroundColour;
+    let timerColour;
+    let buttonColour; 
+
+
     // after a break, increase pomodoro by 1
     // long mode once pomodoro 4 finishes. 
 
@@ -19,18 +24,36 @@
         clearInterval(interval);
         remaining = 1500; 
         currentMode = "Pomodoro"; 
+        backgroundColour = "rgb(186, 73, 73)";
+        timerColour = "rgb(193,92,92)";
+        buttonColour = "rgb(164,78,78)";
+        updateUI();
     }
 
     function shortBreak() {
         clearInterval(interval);
         remaining = 300;   
         currentMode = "Short"; 
+        backgroundColour = "rgb(56,133,138)";
+        timerColour = "rgb(76,145,150)";
+        buttonColour = "rgb(65,123,128)";
+        updateUI();
     }
+
+
 
     function longBreak() {
         clearInterval(interval);
         remaining = 900;  
         currentMode = "Long"; 
+        backgroundColour = "rgb(57,112,151)";
+        timerColour = "rgb(77,127,162)";
+        buttonColour = "rgb(66,108,138)";
+        updateUI();
+    }
+
+    function updateUI() {
+        document.body.style.backgroundColor = backgroundColour;
     }
 
     function updateTimer() {
@@ -76,25 +99,27 @@
     
 </script>
 
-<div class="timer">
+<div class="timer" style="background-color: {timerColour}">
     <div class="header-buttons">
-        <button on:click={pomodoroTime}>Pomodoro</button>
-        <button on:click={shortBreak}>Short Break</button>
-        <button on:click={longBreak}>Long Break</button>
+        <button on:click={pomodoroTime} style="background-color: {buttonColour}">Pomodoro</button>
+        <button on:click={shortBreak} style="background-color: {buttonColour}">Short Break</button>
+        <button on:click={longBreak} style="background-color: {buttonColour}">Long Break</button>
     </div>
 
     <div class="time-remaining">
         {formatTime(remaining)}
     </div>
 
-    <button class="start-button" on:click={updateTimer}>{buttonText}</button>
+    <button class="start-button" on:click={updateTimer} style="color: {buttonColour}">{buttonText}</button>
     {#if visible} 
-        <button on:click={nextMode}>Next Mode</button>
+        <button on:click={nextMode} style="color: {buttonColour}">Next Mode</button>
     {/if}
 </div>
 
-<p>#{pomodoro}</p>
-<p>Time to Focus!</p>
+<p class="font-varela">#{pomodoro}</p>
+<p class="font-varela">Time to Focus!</p>
+<br/>
+<p class="font-varela">Simple Pomodoro Timer by BlueOrcaz. Inspired by Pomofocus.io</p>
 
 <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
 
@@ -108,11 +133,12 @@
 
     .timer {
         background-color: rgb(193,92,92);
+        transition: background-color 0.3s ease; 
     }
 
     div {
       text-align: center;
-      margin: 25px;
+      margin: 45px;
       border-radius: 10px;
     }
 
@@ -120,12 +146,13 @@
     button {
         font-family: 'Arial Rounded MT Regular';
         margin: 10px;
-        padding: 5px 20px;
-        font-size: 16px;
+        padding: 5px 25px;
+        font-size: 18px;
         color: white;
         cursor: pointer;
         background-color: rgb(164,78,78);
         border-radius: 10px;
+        transition: background-color 0.3s ease; 
     }
 
     .start-button {
