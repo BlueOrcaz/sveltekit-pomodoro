@@ -21,6 +21,8 @@
     }
 
     function pomodoroTime() { // set it to specific mode
+        buttonText = "START";
+        visible = false;
         clearInterval(interval);
         remaining = 1500; 
         currentMode = "Pomodoro"; 
@@ -31,6 +33,8 @@
     }
 
     function shortBreak() {
+        buttonText = "START";
+        visible = false;
         clearInterval(interval);
         remaining = 300;   
         currentMode = "Short"; 
@@ -40,9 +44,9 @@
         updateUI();
     }
 
-
-
     function longBreak() {
+        buttonText = "START";
+        visible = false;
         clearInterval(interval);
         remaining = 900;  
         currentMode = "Long"; 
@@ -112,7 +116,7 @@
 
     <button class="start-button" on:click={updateTimer} style="color: {buttonColour}">{buttonText}</button>
     {#if visible} 
-        <button on:click={nextMode} style="color: {buttonColour}">Next Mode</button>
+        <button on:click={nextMode} style="background-color: {backgroundColour}">Next Mode</button>
     {/if}
 </div>
 
@@ -120,6 +124,8 @@
 <p class="font-varela">Time to Focus!</p>
 <br/>
 <p class="font-varela">Simple Pomodoro Timer by BlueOrcaz. Inspired by Pomofocus.io</p>
+<br/>
+<a href="https://github.com/BlueOrcaz" target="_blank">GitHub</a>
 
 <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
 
@@ -144,7 +150,7 @@
 
 
     button {
-        font-family: 'Arial Rounded MT Regular';
+        font-family: 'Varela Round';
         margin: 10px;
         padding: 5px 25px;
         font-size: 18px;
